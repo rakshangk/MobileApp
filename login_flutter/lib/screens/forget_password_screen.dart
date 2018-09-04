@@ -2,17 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:login_flutter/models/user.dart';
 import 'package:login_flutter/data/rest_ds.dart';
 
-class LoginScreen extends StatefulWidget {
-  static String tag = 'login-page';
+class ForgetPassword extends StatefulWidget {
+  static String tag = 'forget-password-page';
   @override
-  LoginScreenState createState() => new LoginScreenState();
+  ForgetPasswordState createState() => new ForgetPasswordState();
 }
 
-class LoginScreenState extends State<LoginScreen> {
+class ForgetPasswordState extends State<ForgetPassword> {
   final GlobalKey<FormState> frmKey = GlobalKey<FormState>();
-  var strUsername = new TextEditingController();
-  var strPassword = new TextEditingController();
-  var strOTP = new TextEditingController();
+
+  var varUsername = new TextEditingController();
+  var varOTP = new TextEditingController();
+
   User user;
   bool bAutoValidate = false;
   RestDatasource restDatasource = new RestDatasource();
@@ -20,7 +21,7 @@ class LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     final labelForgetPassword = Text(
-      'Login',
+      'Forget Password',
       textAlign: TextAlign.center,
       style: TextStyle(
         color: Colors.blue,
@@ -28,9 +29,10 @@ class LoginScreenState extends State<LoginScreen> {
         fontWeight: FontWeight.bold,
       ),
     );
-    final email = TextFormField(
+
+    final txtUsername = TextFormField(
       keyboardType: TextInputType.emailAddress,
-      controller: strUsername,
+      controller: varUsername,
       autofocus: false,
       decoration: InputDecoration(
         hintText: 'Username',
@@ -43,13 +45,12 @@ class LoginScreenState extends State<LoginScreen> {
       },
     );
 
-    final password = TextFormField(
+    final txtOTP = TextFormField(
       autofocus: false,
-      controller: strPassword,
-      obscureText: true,
+      controller: varOTP,
       decoration: InputDecoration(
-        hintText: 'Password',
-        labelText: 'Password',
+        hintText: 'Enter OTP',
+        labelText: 'OTP',
         contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(15.0)),
       ),
@@ -58,7 +59,7 @@ class LoginScreenState extends State<LoginScreen> {
       },
     );
 
-    final loginButton = Padding(
+    final btnGenerateOTP = Padding(
       padding: EdgeInsets.symmetric(vertical: 16.0),
       child: Material(
         borderRadius: BorderRadius.circular(15.0),
@@ -67,26 +68,29 @@ class LoginScreenState extends State<LoginScreen> {
         child: MaterialButton(
           minWidth: 200.0,
           height: 50.0,
-          onPressed: () {
-            // Navigator.of(context).pushNamed(HomePage.tag);
-            if (frmKey.currentState.validate()) {
-              restDatasource.login(strUsername.text, strPassword.text, context);
-            }
-          },
           color: Colors.blue,
-          child: Text('Log In', style: TextStyle(color: Colors.white)),
+          child: Text('Generate OTP', style: TextStyle(color: Colors.white)),
+          onPressed: () {
+            if (frmKey.currentState.validate()) {}
+          },
         ),
       ),
     );
 
-    final forgotLabel = FlatButton(
-      child: Text(
-        'Forgot password?',
-        style: TextStyle(color: Colors.black54),
+    final btnSubmit = Padding(
+      padding: EdgeInsets.symmetric(vertical: 16.0),
+      child: Material(
+        borderRadius: BorderRadius.circular(15.0),
+        shadowColor: Colors.lightBlueAccent.shade100,
+        elevation: 5.0,
+        child: MaterialButton(
+          minWidth: 200.0,
+          height: 50.0,
+          color: Colors.blue,
+          child: Text('Submit', style: TextStyle(color: Colors.white)),
+          onPressed: () {},
+        ),
       ),
-      onPressed: () {
-        Navigator.of(context).pushNamed('/screens/forget_password_screen');
-      },
     );
 
     return Scaffold(
@@ -102,12 +106,13 @@ class LoginScreenState extends State<LoginScreen> {
               SizedBox(height: 48.0),
               labelForgetPassword,
               SizedBox(height: 30.0),
-              email,
+              txtUsername,
               SizedBox(height: 8.0),
-              password,
-              SizedBox(height: 24.0),
-              loginButton,
-              forgotLabel,
+              btnGenerateOTP,
+              SizedBox(height: 8.0),
+              txtOTP,
+              SizedBox(height: 8.0),
+              btnSubmit,
             ],
           ),
         ),

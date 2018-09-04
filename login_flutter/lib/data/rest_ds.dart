@@ -32,6 +32,7 @@ class RestDatasource {
                   child: new Text("Close"),
                   onPressed: () {
                     Navigator.of(context).pop();
+                    // Navigator.of(context).pushNamed('/screens/home_screen');
                   },
                 ),
               ],
