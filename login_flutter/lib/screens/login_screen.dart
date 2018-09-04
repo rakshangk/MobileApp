@@ -89,6 +89,17 @@ class LoginScreenState extends State<LoginScreen> {
       },
     );
 
+    final changePasswordLabel = FlatButton(
+      child: Text(
+        'change password',
+        style: TextStyle(color: Colors.black54),
+      ),
+      onPressed: () {
+        Navigator.of(context).pushNamed('/screens/change_password_screen');
+      },
+    );
+
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: Center(
@@ -108,6 +119,8 @@ class LoginScreenState extends State<LoginScreen> {
               SizedBox(height: 24.0),
               loginButton,
               forgotLabel,
+               SizedBox(height: 8.0),
+              changePasswordLabel,
             ],
           ),
         ),
