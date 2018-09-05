@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:login_flutter/models/user.dart';
 import 'package:login_flutter/data/rest_ds.dart';
+import 'package:login_flutter/utils/form_validation.dart';
+
 
 class ChangePassword extends StatefulWidget {
   static String tag = 'ConfirmPassword-page';
@@ -12,6 +14,8 @@ class ChangePassword extends StatefulWidget {
 
 class ChangePasswordScreeenState extends State<ChangePassword> {
   final GlobalKey<FormState> frmKey = GlobalKey<FormState>();
+
+  FormValadation oFormValidation=new FormValadation();
 
   var strCurrentPassword = new TextEditingController();
   var strNewPassword = new TextEditingController();
@@ -70,11 +74,7 @@ class ChangePasswordScreeenState extends State<ChangePassword> {
       },
     );
 
-    passwordNotMatched(value) {
-      if ((value != strNewPassword.text)) 
-        return 'Passwrod is not matching';   
-    }
-
+    
     final txtVerifyPassword = TextFormField(
       autofocus: false,
       controller: strVerifyPassword,
@@ -87,7 +87,7 @@ class ChangePasswordScreeenState extends State<ChangePassword> {
       ),
       validator: (value) {
         if (value.isNotEmpty) {
-          return passwordNotMatched(value);
+          return oFormValidation.passwordNotMatched(strNewPassword,value);
         } else {
           return "please verify password ";
         }

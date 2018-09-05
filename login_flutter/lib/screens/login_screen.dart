@@ -20,7 +20,7 @@ class LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     final labelForgetPassword = Text(
-      'Login',
+      'Sign In',
       textAlign: TextAlign.center,
       style: TextStyle(
         color: Colors.blue,
@@ -57,6 +57,7 @@ class LoginScreenState extends State<LoginScreen> {
         if (value.isEmpty) return "Please enter Password...";
       },
     );
+    
 
     final loginButton = Padding(
       padding: EdgeInsets.symmetric(vertical: 16.0),
@@ -67,14 +68,32 @@ class LoginScreenState extends State<LoginScreen> {
         child: MaterialButton(
           minWidth: 200.0,
           height: 50.0,
+          color: Colors.blue,
+          child: Text('Log In', style: TextStyle(color: Colors.white)),
           onPressed: () {
             // Navigator.of(context).pushNamed(HomePage.tag);
             if (frmKey.currentState.validate()) {
               restDatasource.login(strUsername.text, strPassword.text, context);
             }
           },
+        ),
+      ),
+    );
+
+    final signUpButton = Padding(
+      padding: EdgeInsets.symmetric(vertical: 16.0),
+      child: Material(
+        borderRadius: BorderRadius.circular(15.0),
+        shadowColor: Colors.lightBlueAccent.shade100,
+        elevation: 5.0,
+        child: MaterialButton(
+          minWidth: 200.0,
+          height: 50.0,
           color: Colors.blue,
-          child: Text('Log In', style: TextStyle(color: Colors.white)),
+          child: Text('SignUp', style: TextStyle(color: Colors.white)),
+          onPressed: () {
+            Navigator.of(context).pushNamed('/screens/sign_up_screen');
+          },
         ),
       ),
     );
@@ -99,7 +118,6 @@ class LoginScreenState extends State<LoginScreen> {
       },
     );
 
-
     return Scaffold(
       backgroundColor: Colors.white,
       body: Center(
@@ -118,9 +136,10 @@ class LoginScreenState extends State<LoginScreen> {
               password,
               SizedBox(height: 24.0),
               loginButton,
+              signUpButton,
               forgotLabel,
-               SizedBox(height: 8.0),
-              changePasswordLabel,
+
+              //changePasswordLabel,
             ],
           ),
         ),

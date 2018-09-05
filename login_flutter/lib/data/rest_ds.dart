@@ -3,6 +3,7 @@ import 'package:login_flutter/utils/network_util.dart';
 import 'package:login_flutter/models/user.dart';
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:login_flutter/screens/main_screen.dart';
 
 class RestDatasource {
   NetworkUtil _netUtil = new NetworkUtil();
@@ -19,28 +20,13 @@ class RestDatasource {
         body: {"username": username, "password": password}).then((dynamic res) {
       print(res.toString());
       if (res['m_bIsSuccess']) {
-        showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            // return object of type Dialog
-            return AlertDialog(
-              title: new Text("Login Dialog"),
-              content: new Text(res["strResponseMessage"]),
-              actions: <Widget>[
-                // usually buttons at the bottom of the dialog
-                new FlatButton(
-                  child: new Text("Close"),
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                    // Navigator.of(context).pushNamed('/screens/home_screen');
-                  },
-                ),
-              ],
-            );
-          },
+        var route=new MaterialPageRoute(
+          builder:(BuildContext context)=>new MainScreen(strUsername: username),
         );
+        Navigator.of(context).push(route);
         print('*********************************');
         print('Success : ' + res["strResponseMessage"]);
+        
       }
     });
   }
