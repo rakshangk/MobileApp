@@ -99,12 +99,12 @@ class ChangePasswordScreeenState extends State<ChangePassword> {
     final btnSubmitButton = Padding(
       padding: EdgeInsets.symmetric(vertical: 16.0),
       child: Material(
-        borderRadius: BorderRadius.circular(30.0),
+        borderRadius: BorderRadius.circular(15.0),
         shadowColor: Colors.lightBlueAccent.shade100,
         elevation: 5.0,
         child: MaterialButton(
           minWidth: 200.0,
-          height: 42.0,
+          height: 50.0,
           onPressed: () {
             // Navigator.of(context).pushNamed(HomePage.tag);
             if (frmKey.currentState.validate()) {
