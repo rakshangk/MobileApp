@@ -7,9 +7,8 @@ class SignUp extends StatefulWidget {
 }
 
 class SignUpState extends State<SignUp> {
-  FormValadation oFormValadation = new FormValadation();
-
   final GlobalKey<FormState> frmKey = GlobalKey<FormState>();
+  FormValadation oFormValadation = new FormValadation();
   var varName = new TextEditingController();
   var varMobile = new TextEditingController();
   var varEmail = new TextEditingController();
@@ -29,20 +28,36 @@ class SignUpState extends State<SignUp> {
       ),
     );
 
-    final txtName = TextFormField(
+    final txtFirsttName = TextFormField(
       keyboardType: TextInputType.text,
       controller: varName,
       autofocus: false,
       decoration: InputDecoration(
-        hintText: 'Name',
-        labelText: 'Name',
+        hintText: 'FirstName',
+        labelText: 'FirstName',
         contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(15.0)),
       ),
       validator: (value) {
-        if (value.isEmpty) return "Please Enter Name...";
+        if (value.isEmpty) return "Please Enter First Name...";
       },
     );
+
+    final txtLastName = TextFormField(
+      keyboardType: TextInputType.text,
+      controller: varName,
+      autofocus: false,
+      decoration: InputDecoration(
+        hintText: 'LastName',
+        labelText: 'LastName',
+        contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(15.0)),
+      ),
+      validator: (value) {
+        if (value.isEmpty) return "Please Enter Last Name...";
+      },
+    );
+
     final txtMobile = TextFormField(
       keyboardType: TextInputType.number,
       controller: varMobile,
@@ -69,7 +84,12 @@ class SignUpState extends State<SignUp> {
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(15.0)),
       ),
       validator: (value) {
-        if (value.isEmpty) return "Please Enter Email ID...";
+        String strValidationMessage;
+        if (value.isNotEmpty)
+          strValidationMessage = oFormValadation.emailNotMatched(value);
+        else
+          strValidationMessage = "please enter User Mail-Id/Username ";
+        return strValidationMessage;
       },
     );
     final txtPassword = TextFormField(
@@ -105,7 +125,7 @@ class SignUpState extends State<SignUp> {
           strValidationMessage =
               oFormValadation.passwordNotMatched(varPasssword, value);
         else
-          strValidationMessage = "please enter password ";
+          strValidationMessage = "please Re-type password ";
         return strValidationMessage;
       },
     );
@@ -150,11 +170,13 @@ class SignUpState extends State<SignUp> {
               SizedBox(height: 48.0),
               labelSignUp,
               SizedBox(height: 30.0),
-              txtName,
+              txtEmail,
+              SizedBox(height: 8.0),
+              txtFirsttName,
+              SizedBox(height: 8.0),
+              txtLastName,
               SizedBox(height: 8.0),
               txtMobile,
-              SizedBox(height: 8.0),
-              txtEmail,
               SizedBox(height: 8.0),
               txtPassword,
               SizedBox(height: 8.0),

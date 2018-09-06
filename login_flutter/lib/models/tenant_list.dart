@@ -1,7 +1,7 @@
 class TenantList {
   String m_strUsername;
   String m_strPassword;
-  List<String> arr_tenantList;
+  List arr_tenantList;
 
   TenantList(this.m_strUsername, this.m_strPassword, this.arr_tenantList);
   String get username => m_strUsername;

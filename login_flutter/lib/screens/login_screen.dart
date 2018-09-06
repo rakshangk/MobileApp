@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:login_flutter/models/user.dart';
 import 'package:login_flutter/data/rest_ds.dart';
+import 'package:login_flutter/utils/form_validation.dart';
 
 class LoginScreen extends StatefulWidget {
   static String tag = 'login-page';
@@ -9,6 +10,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class LoginScreenState extends State<LoginScreen> {
+  FormValadation oFormValadation=new FormValadation();
   final GlobalKey<FormState> frmKey = GlobalKey<FormState>();
   var strUsername = new TextEditingController();
   var strPassword = new TextEditingController();
@@ -39,7 +41,13 @@ class LoginScreenState extends State<LoginScreen> {
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(15.0)),
       ),
       validator: (value) {
-        if (value.isEmpty) return "Please enter username...";
+        String strValidationMessage;
+        if (value.isNotEmpty)
+          strValidationMessage =
+              oFormValadation.emailNotMatched(value);
+        else
+          strValidationMessage = "please enter User Mail-Id/Username ";
+        return strValidationMessage;
       },
     );
 

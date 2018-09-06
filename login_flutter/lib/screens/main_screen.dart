@@ -15,8 +15,7 @@ class MainScreenState extends State<MainScreen> {
 RestDatasource oRestDatasource = new RestDatasource();
   @override
   Widget build(BuildContext context) {
-    final labelWelcomeText = Text(
-      
+    final labelWelcomeText = Text(      
       'Welcome : '+widget.strUsername.toString(),
       textAlign: TextAlign.center,
       style: TextStyle(
@@ -36,7 +35,6 @@ RestDatasource oRestDatasource = new RestDatasource();
         fontWeight: FontWeight.bold,
       ),
     );
-
 
     final btnFetchList = Padding(
       padding: EdgeInsets.symmetric(vertical: 16.0),
@@ -66,6 +64,7 @@ RestDatasource oRestDatasource = new RestDatasource();
         btnFetchList,
         SizedBox(height: 60.0),
         labelTenantList,
+        //TenantDropdownlist,
       ],
     )));
   }
