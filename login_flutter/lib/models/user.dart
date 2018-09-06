@@ -10,9 +10,8 @@ class User {
   }
 
   String get username => m_strUsername;
-
   String get password => m_strPassword;
-
+  
   Map<String, dynamic> toMap() {
     var map = new Map<String, dynamic>();
     map["username"] = m_strUsername;

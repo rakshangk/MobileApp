@@ -9,7 +9,8 @@ class SignUp extends StatefulWidget {
 class SignUpState extends State<SignUp> {
   final GlobalKey<FormState> frmKey = GlobalKey<FormState>();
   FormValadation oFormValadation = new FormValadation();
-  var varName = new TextEditingController();
+  var varFirstName = new TextEditingController();
+  var varLastName = new TextEditingController();
   var varMobile = new TextEditingController();
   var varEmail = new TextEditingController();
   var varPasssword = new TextEditingController();
@@ -30,7 +31,7 @@ class SignUpState extends State<SignUp> {
 
     final txtFirsttName = TextFormField(
       keyboardType: TextInputType.text,
-      controller: varName,
+      controller: varFirstName,
       autofocus: false,
       decoration: InputDecoration(
         hintText: 'FirstName',
@@ -45,7 +46,7 @@ class SignUpState extends State<SignUp> {
 
     final txtLastName = TextFormField(
       keyboardType: TextInputType.text,
-      controller: varName,
+      controller: varLastName,
       autofocus: false,
       decoration: InputDecoration(
         hintText: 'LastName',

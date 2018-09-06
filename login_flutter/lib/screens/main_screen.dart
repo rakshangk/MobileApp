@@ -4,19 +4,20 @@ import 'package:login_flutter/data/rest_ds.dart';
 class MainScreen extends StatefulWidget {
   final String strUsername;
   final String strPassword;
-  final List<dynamic> arrTenantList;
-  MainScreen({Key key,this.strUsername,this.strPassword,this.arrTenantList}):super(key:key);
+  final dynamic arrTenantList;
+  MainScreen({Key key, this.strUsername, this.strPassword, this.arrTenantList})
+      : super(key: key);
   @override
   MainScreenState createState() => new MainScreenState();
 }
 
 class MainScreenState extends State<MainScreen> {
+  RestDatasource oRestDatasource = new RestDatasource();
 
-RestDatasource oRestDatasource = new RestDatasource();
   @override
   Widget build(BuildContext context) {
-    final labelWelcomeText = Text(      
-      'Welcome : '+widget.strUsername.toString(),
+    final labelWelcomeText = Text(
+      'Welcome : ' + widget.strUsername.toString(),
       textAlign: TextAlign.center,
       style: TextStyle(
         color: Colors.blue,
@@ -25,9 +26,8 @@ RestDatasource oRestDatasource = new RestDatasource();
       ),
     );
 
-
-     final labelTenantList = Text(   
-      'List : '+widget.arrTenantList.toString(),
+    final labelTenantList = Text(
+      'List : ' + widget.arrTenantList.toString(),
       textAlign: TextAlign.center,
       style: TextStyle(
         color: Colors.blue,
@@ -48,12 +48,14 @@ RestDatasource oRestDatasource = new RestDatasource();
           color: Colors.blue,
           child: Text('Fetch List', style: TextStyle(color: Colors.white)),
           onPressed: () {
-            oRestDatasource.getTenantList(widget.strUsername,widget.strPassword,context);
+            oRestDatasource.getTenantList(
+                widget.strUsername, widget.strPassword, context);
           },
         ),
       ),
     );
 
+    
     return Scaffold(
         body: Center(
             child: ListView(
@@ -64,7 +66,6 @@ RestDatasource oRestDatasource = new RestDatasource();
         btnFetchList,
         SizedBox(height: 60.0),
         labelTenantList,
-        //TenantDropdownlist,
       ],
     )));
   }
