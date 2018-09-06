@@ -44,13 +44,13 @@ class RestDatasource {
       Map<String,dynamic> data = json.decode(res);
       List arrjobList = data['arrJobList'];
       if (arrjobList.length > 0) {
+        Navigator.of(context).pop();
         var route = new MaterialPageRoute(
           builder: (BuildContext context) =>
-              new MainScreen(arrTenantList: arrjobList),
+              new MainScreen(arrTenantList: arrjobList,strUsername: username),
         );
         Navigator.of(context).push(route);
         print('*********************************');
-        //print('Success : ' + res["arrJobList"]);
       }
     });
   }
