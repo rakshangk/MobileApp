@@ -4,7 +4,7 @@ import 'package:login_flutter/data/rest_ds.dart';
 class MainScreen extends StatefulWidget {
   final String strUsername;
   final String strPassword;
-  final List<String> arrTenantList;
+  final List<dynamic> arrTenantList;
   MainScreen({Key key,this.strUsername,this.strPassword,this.arrTenantList}):super(key:key);
   @override
   MainScreenState createState() => new MainScreenState();

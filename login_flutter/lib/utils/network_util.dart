@@ -38,7 +38,7 @@ Future<dynamic> get(String url, {headers}) {
         throw new Exception(
             "Error while fetching data, statusCode:$statusCode");
       }
-      return _decoder.convert(res);
+      return res ;
     });
   }
 

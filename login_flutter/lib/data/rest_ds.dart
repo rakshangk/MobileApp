@@ -34,22 +34,23 @@ class RestDatasource {
   }
 
   Future<TenantList> getTenantList(
-    String username, String password, BuildContext context) {
-    String basicAuth =
+      String username, String password, BuildContext context) {
+      String basicAuth =
         'Basic ' + base64Encode(utf8.encode('$username:$password'));
     print('****************_API_KEY********************* : ' + basicAuth);
     return _netUtil.get(TENANTLIST_URL,
         headers: {'authorization': basicAuth}).then((dynamic res) {
       print(res.toString());
-      List arrjobList=res['arrJobList'];
-      if (arrjobList.length>0) {
+      Map<String,dynamic> data = json.decode(res);
+      List arrjobList = data['arrJobList'];
+      if (arrjobList.length > 0) {
         var route = new MaterialPageRoute(
           builder: (BuildContext context) =>
               new MainScreen(arrTenantList: arrjobList),
         );
         Navigator.of(context).push(route);
         print('*********************************');
-        print('Success :'+ arrjobList.toString());
+        //print('Success : ' + res["arrJobList"]);
       }
     });
   }
