@@ -59,10 +59,7 @@ class NetworkUtil {
       strErrorMessage = "Invalid username and password";
     else if (nStatusCode < 200 || nStatusCode > 400 || json == null)
       strErrorMessage = "Error Fetching Data";
-    print('****************ERROR MESSAGE*********************');
-    print(strErrorMessage);
-    print('***************************************************');
-    if (nStatusCode != 202)
+    if (nStatusCode != 200 && nStatusCode!=202)
       oDynamicWidgets.showAlertDialog(
           context, 'Login Failed!', strErrorMessage);
   }

@@ -7,7 +7,13 @@ class DynamicWidgets{
         builder: (_) => new AlertDialog(
             title: new Text(strAlertTitle),
             content: new Text(strMessage),
-            
+            actions: <Widget>[
+              new FlatButton(
+                child: new Text('OK'), onPressed: () {
+                  Navigator.of(cxt).pop();
+                }, 
+              )
+            ],
         )
     );
   }

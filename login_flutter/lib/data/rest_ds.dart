@@ -40,6 +40,7 @@ class RestDatasource {
           builder: (BuildContext context) =>
               new MainScreen(arrTenantList: res, strUsername: username),
         );
+        Navigator.of(context).pop();
         Navigator.of(context).push(route);
       }
     });
