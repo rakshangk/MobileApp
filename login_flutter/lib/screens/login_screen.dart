@@ -10,7 +10,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class LoginScreenState extends State<LoginScreen> {
-  FormValadation oFormValadation=new FormValadation();
+  FormValadation oFormValadation = new FormValadation();
   final GlobalKey<FormState> frmKey = GlobalKey<FormState>();
   var strUsername = new TextEditingController();
   var strPassword = new TextEditingController();
@@ -43,8 +43,7 @@ class LoginScreenState extends State<LoginScreen> {
       validator: (value) {
         String strValidationMessage;
         if (value.isNotEmpty)
-          strValidationMessage =
-              oFormValadation.emailNotMatched(value);
+          strValidationMessage = oFormValadation.emailNotMatched(value);
         else
           strValidationMessage = "please enter User Mail-Id/Username ";
         return strValidationMessage;
@@ -65,8 +64,8 @@ class LoginScreenState extends State<LoginScreen> {
         if (value.isEmpty) return "Please enter Password...";
       },
     );
-    
 
+   
     final loginButton = Padding(
       padding: EdgeInsets.symmetric(vertical: 16.0),
       child: Material(
@@ -146,7 +145,7 @@ class LoginScreenState extends State<LoginScreen> {
               loginButton,
               signUpButton,
               forgotLabel,
-
+              
               //changePasswordLabel,
             ],
           ),

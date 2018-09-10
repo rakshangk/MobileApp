@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:login_flutter/Widgets/dynamic_Widgets.dart';
 
 class NetworkUtil {
-  // next three lines makes this class a Singleton
+  
   static NetworkUtil _instance = new NetworkUtil.internal();
 
   DynamicWidgets oDynamicWidgets = new DynamicWidgets();

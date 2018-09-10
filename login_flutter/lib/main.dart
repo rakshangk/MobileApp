@@ -10,7 +10,6 @@ class LoginApp extends StatelessWidget {
     return new MaterialApp(
 
       title: 'TechMust',
-      
       routes: routes,
     );
   }

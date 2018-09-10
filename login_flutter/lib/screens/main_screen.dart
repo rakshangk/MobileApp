@@ -27,7 +27,7 @@ class MainScreenState extends State<MainScreen> {
     );
 
     final labelTenantList = Text(
-      'List : ' + widget.arrTenantList.toString(),
+      'List : ' + widget.arrTenantList['m_strJobName'].toString(),
       textAlign: TextAlign.center,
       style: TextStyle(
         color: Colors.blue,
@@ -35,7 +35,7 @@ class MainScreenState extends State<MainScreen> {
         fontWeight: FontWeight.bold,
       ),
     );
-
+    
     final btnFetchList = Padding(
       padding: EdgeInsets.symmetric(vertical: 16.0),
       child: Material(
@@ -55,7 +55,6 @@ class MainScreenState extends State<MainScreen> {
       ),
     );
 
-    
     return Scaffold(
         body: Center(
             child: ListView(
