@@ -6,12 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:login_flutter/screens/main_screen.dart';
 import 'package:login_flutter/models/tenant_list.dart';
 import 'package:login_flutter/Constants/URLConstants.dart';
-import 'package:login_flutter/utils/shared_preferences.dart';
 
 class RestDatasource {
   NetworkUtil oNetworkUtil = new NetworkUtil();
   URLConstants oURLConstants = new URLConstants();
-  SharedPreference oSharedPreference = new SharedPreference();
 
   Future<User> login(String username, String password, BuildContext context) {
     String strBasicAuth = oNetworkUtil.getBasicAuth(username, password);
@@ -19,7 +17,6 @@ class RestDatasource {
         headers: {'authorization': strBasicAuth},
         body: {"username": username, "password": password}).then((dynamic res) {
       if (res['m_bIsSuccess']) {
-        oSharedPreference.setStringPreferences('username', username);
         var route = new MaterialPageRoute(
           builder: (BuildContext context) =>
               new MainScreen(strUsername: username, strPassword: password),
@@ -38,23 +35,21 @@ class RestDatasource {
 
       Map<String, dynamic> data = json.decode(res);
       List arrjobList = data['arrJobList'];
-      Map<String,dynamic> arrTenantList;
-      for(int nIndex=0;nIndex<arrjobList.length;nIndex++)
-      {
-        arrTenantList=arrjobList[nIndex];
-        for(int nArray=0;nArray<arrjobList.length;nArray++)
-        {
-          print('ID='+arrTenantList['m_nId'].toString());
-          print('ID='+arrTenantList['m_strJobName'].toString());
+      Map<String, dynamic> arrTenantList;
+      for (int nIndex = 0; nIndex < arrjobList.length; nIndex++) {
+        arrTenantList = arrjobList[nIndex];
+        for (int nArray = 0; nArray < arrjobList.length; nArray++) {
+          print('ID=' + arrTenantList['m_nId'].toString());
+          print('ID=' + arrTenantList['m_strJobName'].toString());
         }
-       
       }
-      
       if (arrjobList.length > 0) {
         Navigator.of(context).pop();
         var route = new MaterialPageRoute(
-          builder: (BuildContext context) =>
-              new MainScreen(arrTenantList: arrTenantList, strUsername: username,strPassword: password),
+          builder: (BuildContext context) => new MainScreen(
+              arrTenantList: arrTenantList,
+              strUsername: username,
+              strPassword: password),
         );
         Navigator.of(context).push(route);
       }

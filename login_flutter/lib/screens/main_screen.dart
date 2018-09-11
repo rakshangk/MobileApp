@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:login_flutter/data/rest_ds.dart';
+import 'package:crypto/crypto.dart';
+import 'dart:convert';
 
 class MainScreen extends StatefulWidget {
   final String strUsername;
@@ -13,6 +15,7 @@ class MainScreen extends StatefulWidget {
 
 class MainScreenState extends State<MainScreen> {
   RestDatasource oRestDatasource = new RestDatasource();
+  
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +30,8 @@ class MainScreenState extends State<MainScreen> {
     );
 
     final labelTenantList = Text(
-      'List : ' + widget.arrTenantList['m_strJobName'].toString(),
+      
+      'List : ' + widget.arrTenantList[0].toString(),
       textAlign: TextAlign.center,
       style: TextStyle(
         color: Colors.blue,

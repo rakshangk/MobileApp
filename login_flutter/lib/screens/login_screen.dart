@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:login_flutter/models/user.dart';
 import 'package:login_flutter/data/rest_ds.dart';
 import 'package:login_flutter/utils/form_validation.dart';
-
+import 'package:login_flutter/utils/Securityutils.dart';
 class LoginScreen extends StatefulWidget {
   static String tag = 'login-page';
   @override
   LoginScreenState createState() => new LoginScreenState();
 }
+
+SecurityUtils oSecurityUtils = new SecurityUtils();
 
 class LoginScreenState extends State<LoginScreen> {
   FormValadation oFormValadation = new FormValadation();
@@ -80,7 +82,8 @@ class LoginScreenState extends State<LoginScreen> {
           onPressed: () {
             // Navigator.of(context).pushNamed(HomePage.tag);
             if (frmKey.currentState.validate()) {
-              restDatasource.login(strUsername.text, strPassword.text, context);
+               String strEncryptedPassword = oSecurityUtils.passwordEncrypt(strPassword.text);
+              restDatasource.login(strUsername.text,strEncryptedPassword.toString(), context);
             }
           },
         ),
