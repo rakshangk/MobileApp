@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:login_flutter/data/rest_ds.dart';
-import 'package:crypto/crypto.dart';
-import 'dart:convert';
+
 
 class MainScreen extends StatefulWidget {
   final String strUsername;
@@ -16,9 +15,10 @@ class MainScreen extends StatefulWidget {
 class MainScreenState extends State<MainScreen> {
   RestDatasource oRestDatasource = new RestDatasource();
   
-
   @override
   Widget build(BuildContext context) {
+   
+
     final labelWelcomeText = Text(
       'Welcome : ' + widget.strUsername.toString(),
       textAlign: TextAlign.center,
@@ -30,8 +30,7 @@ class MainScreenState extends State<MainScreen> {
     );
 
     final labelTenantList = Text(
-      
-      'List : ' + widget.arrTenantList[0].toString(),
+      'List : ' + widget.arrTenantList.toString(),
       textAlign: TextAlign.center,
       style: TextStyle(
         color: Colors.blue,
@@ -39,7 +38,7 @@ class MainScreenState extends State<MainScreen> {
         fontWeight: FontWeight.bold,
       ),
     );
-    
+
     final btnFetchList = Padding(
       padding: EdgeInsets.symmetric(vertical: 16.0),
       child: Material(
@@ -52,12 +51,29 @@ class MainScreenState extends State<MainScreen> {
           color: Colors.blue,
           child: Text('Fetch List', style: TextStyle(color: Colors.white)),
           onPressed: () {
-            oRestDatasource.getTenantList(
-                widget.strUsername, widget.strPassword, context);
+            oRestDatasource.getTenantList(widget.strUsername, widget.strPassword, context);
           },
         ),
       ),
     );
+    final btnLogout = Padding(
+      padding: EdgeInsets.symmetric(vertical: 16.0),
+      child: Material(
+        borderRadius: BorderRadius.circular(15.0),
+        shadowColor: Colors.lightBlueAccent.shade100,
+        elevation: 5.0,
+        child: MaterialButton(
+          minWidth: 200.0,
+          height: 50.0,
+          color: Colors.blue,
+          child: Text('Logout', style: TextStyle(color: Colors.white)),
+          onPressed: () {
+            oRestDatasource.logout(widget.strUsername, widget.strPassword, context);
+          },
+        ),
+      ),
+    );
+
 
     return Scaffold(
         body: Center(
@@ -69,7 +85,13 @@ class MainScreenState extends State<MainScreen> {
         btnFetchList,
         SizedBox(height: 60.0),
         labelTenantList,
+        SizedBox(height: 300.0),
+        btnLogout
+       
       ],
     )));
   }
 }
+
+
+

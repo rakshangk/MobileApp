@@ -42,6 +42,17 @@ class NetworkUtil {
       return res;
     });
   }
+  Future<dynamic> getLogout(BuildContext context,String url, {headers}) {
+    return http
+        .get(
+      url,
+      headers: headers,
+    )
+        .then((http.Response response) {
+      showStatusCode(context, response);
+      return response;
+    });
+  }
 
   String getBasicAuth(String strUsername, String strPassword) {
     String basicAuth =
@@ -58,7 +69,7 @@ class NetworkUtil {
     if (nStatusCode == 401)
       strErrorMessage = "Invalid username and password";
     else if (nStatusCode < 200 || nStatusCode > 400 || json == null)
-      strErrorMessage = "Error Fetching Data";
+      strErrorMessage = "Error Fetching Data"+nStatusCode.toString();
     if (nStatusCode != 200 && nStatusCode!=202)
       oDynamicWidgets.showAlertDialog(
           context, 'Login Failed!', strErrorMessage);
