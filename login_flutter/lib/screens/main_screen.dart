@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:login_flutter/data/rest_ds.dart';
 
-
 class MainScreen extends StatefulWidget {
   final String strUsername;
   final String strPassword;
-  final dynamic arrTenantList;
+  final Map<String,dynamic> arrTenantList;
+  
   MainScreen({Key key, this.strUsername, this.strPassword, this.arrTenantList})
       : super(key: key);
   @override
@@ -17,8 +17,6 @@ class MainScreenState extends State<MainScreen> {
   
   @override
   Widget build(BuildContext context) {
-   
-
     final labelWelcomeText = Text(
       'Welcome : ' + widget.strUsername.toString(),
       textAlign: TextAlign.center,
@@ -38,24 +36,7 @@ class MainScreenState extends State<MainScreen> {
         fontWeight: FontWeight.bold,
       ),
     );
-
-    final btnFetchList = Padding(
-      padding: EdgeInsets.symmetric(vertical: 16.0),
-      child: Material(
-        borderRadius: BorderRadius.circular(15.0),
-        shadowColor: Colors.lightBlueAccent.shade100,
-        elevation: 5.0,
-        child: MaterialButton(
-          minWidth: 200.0,
-          height: 50.0,
-          color: Colors.blue,
-          child: Text('Fetch List', style: TextStyle(color: Colors.white)),
-          onPressed: () {
-            oRestDatasource.getTenantList(widget.strUsername, widget.strPassword, context);
-          },
-        ),
-      ),
-    );
+    
     final btnLogout = Padding(
       padding: EdgeInsets.symmetric(vertical: 16.0),
       child: Material(
@@ -68,12 +49,12 @@ class MainScreenState extends State<MainScreen> {
           color: Colors.blue,
           child: Text('Logout', style: TextStyle(color: Colors.white)),
           onPressed: () {
-            oRestDatasource.logout(widget.strUsername, widget.strPassword, context);
+            oRestDatasource.logout(
+                widget.strUsername, widget.strPassword, context);
           },
         ),
       ),
     );
-
 
     return Scaffold(
         body: Center(
@@ -82,16 +63,12 @@ class MainScreenState extends State<MainScreen> {
       children: <Widget>[
         SizedBox(height: 60.0),
         labelWelcomeText,
-        btnFetchList,
         SizedBox(height: 60.0),
         labelTenantList,
-        SizedBox(height: 300.0),
-        btnLogout
        
+        SizedBox(height: 400.0),
+        btnLogout
       ],
     )));
   }
 }
-
-
-

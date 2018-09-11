@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:login_flutter/screens/main_screen.dart';
 import 'package:login_flutter/Constants/URLConstants.dart';
 import 'package:login_flutter/utils/shared_preferences.dart';
-import 'package:http/http.dart' as http;
 
 class RestDatasource {
   NetworkUtil oNetworkUtil = new NetworkUtil();
@@ -20,13 +19,7 @@ class RestDatasource {
         headers: {'authorization': strBasicAuth},
         body: {"username": username, "password": password}).then((dynamic res) {
       if (res['m_bIsSuccess']) {
-        oSharedPreference.setStringPreferences('username', username);
-
-        var route = new MaterialPageRoute(
-          builder: (BuildContext context) =>
-              new MainScreen(strUsername: username, strPassword: password),
-        );
-        Navigator.of(context).push(route);
+        getTenantList(username, password, context);
       }
     });
   }
@@ -69,7 +62,8 @@ class RestDatasource {
     String strBasicAuth = oNetworkUtil.getBasicAuth(username, password);
     return oNetworkUtil.getLogout(context, oURLConstants.strLogoutURL,
         headers: {'authorization': strBasicAuth}).then((dynamic res) {
-      if (res.statusCode == 204) Navigator.of(context).pushNamed('/screens/login_screen');
+      if (res.statusCode == 204)
+        Navigator.of(context).pushNamed('/screens/login_screen');
     });
   }
 }
