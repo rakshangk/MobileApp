@@ -5,6 +5,7 @@ import 'package:login_flutter/utils/network_util.dart';
 import 'package:login_flutter/models/user.dart';
 import 'package:flutter/material.dart';
 import 'package:login_flutter/screens/main_screen.dart';
+import 'package:login_flutter/screens/jobs_screen.dart';
 import 'package:login_flutter/Constants/URLConstants.dart';
 import 'package:login_flutter/utils/shared_preferences.dart';
 
@@ -19,38 +20,48 @@ class RestDatasource {
         headers: {'authorization': strBasicAuth},
         body: {"username": username, "password": password}).then((dynamic res) {
       if (res['m_bIsSuccess']) {
-        getTenantList(username, password, context);
+        print(res.toString());
+        Map<String, dynamic> data = res;
+        List<dynamic> arrTenantList = data['arrTenantList'];
+        print('Tenant List=' + arrTenantList.toString());
+        var route = new MaterialPageRoute(
+          builder: (BuildContext context) => new MainScreen(
+                strUsername: username,
+                strPassword: password,
+                arrTenantList: arrTenantList,
+              ),
+        );
+        Navigator.of(context).push(route);
       }
     });
   }
 
-  Future<TenantList> getTenantList(
+  Future<TenantList> getJobList(
       String username, String password, BuildContext context) {
     NetworkUtil oNetworkUtil = new NetworkUtil();
+
     URLConstants oURLConstants = new URLConstants();
-    Map<String, dynamic> arrTenantList;
+
+    Map<String, dynamic> arrJobList;
     String strBasicAuth = oNetworkUtil.getBasicAuth(username, password);
     return oNetworkUtil.get(context, oURLConstants.strTenantURL,
         headers: {'authorization': strBasicAuth}).then(
       (dynamic res) {
         print("Data Source= " + res.toString());
         Map<String, dynamic> data = json.decode(res.toString());
-        List arrjobList = data['arrJobList'];
-        for (int nIndex = 0; nIndex < arrjobList.length; nIndex++) {
-          arrTenantList = arrjobList[nIndex];
-          for (int nArray = 0; nArray < arrjobList.length; nArray++) {
-            print('ID=' + arrTenantList['m_nId'].toString());
-            print('Name=' + arrTenantList['m_strJobName'].toString());
+        List arrjobs = data['arrJobList'];
+        for (int nIndex = 0; nIndex < arrjobs.length; nIndex++) {
+          arrJobList = arrjobs[nIndex];
+          for (int nArray = 0; nArray < arrjobs.length; nArray++) {
+            print('ID=' + arrJobList['m_nId'].toString());
+            print('Name=' + arrJobList['m_strJobName'].toString());
           }
         }
-        print("Data Source= " + res.toString());
-        print("ArrTenantList= " + arrTenantList.toString());
-
         var route = new MaterialPageRoute(
-          builder: (BuildContext context) => new MainScreen(
+          builder: (BuildContext context) => new Jobs(
                 strUsername: username,
                 strPassword: password,
-                arrTenantList: arrTenantList,
+                arrJobList: arrJobList,
               ),
         );
         Navigator.of(context).push(route);
@@ -62,8 +73,8 @@ class RestDatasource {
     String strBasicAuth = oNetworkUtil.getBasicAuth(username, password);
     return oNetworkUtil.getLogout(context, oURLConstants.strLogoutURL,
         headers: {'authorization': strBasicAuth}).then((dynamic res) {
-      if (res.statusCode == 204)
-        Navigator.of(context).pushNamed('/screens/login_screen');
+      if (res.statusCode == 204) Navigator.of(context).pop();
+      Navigator.of(context).pushNamed('/screens/login_screen');
     });
   }
 }
