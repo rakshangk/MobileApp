@@ -12,6 +12,7 @@ class Jobs extends StatefulWidget {
   JobState createState() => new JobState();
 }
 
+
 class JobState extends State<Jobs> {
   @override
   Widget build(BuildContext context) {
@@ -29,6 +30,8 @@ class JobState extends State<Jobs> {
     final tableTenant = Center(
         child: new PaginatedDataTable(
       header: Center(child: const Text('Jobs')),
+      rowsPerPage: oTenantDataSource.listJobs.length,
+
       source: oTenantDataSource,
       columns: <DataColumn>[
         new DataColumn(
@@ -38,6 +41,7 @@ class JobState extends State<Jobs> {
           label: Text('Job Name'),
         ),
       ],
+     
     ));
 
     return Scaffold(

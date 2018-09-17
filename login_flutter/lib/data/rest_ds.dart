@@ -7,12 +7,10 @@ import 'package:flutter/material.dart';
 import 'package:login_flutter/screens/main_screen.dart';
 import 'package:login_flutter/screens/jobs_screen.dart';
 import 'package:login_flutter/Constants/URLConstants.dart';
-import 'package:login_flutter/utils/shared_preferences.dart';
 
 class RestDatasource {
   NetworkUtil oNetworkUtil = new NetworkUtil();
   URLConstants oURLConstants = new URLConstants();
-  SharedPreference oSharedPreference = new SharedPreference();
 
   Future<User> login(String username, String password, BuildContext context) {
     String strBasicAuth = oNetworkUtil.getBasicAuth(username, password);
