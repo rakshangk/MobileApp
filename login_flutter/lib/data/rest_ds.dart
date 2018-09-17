@@ -39,29 +39,18 @@ class RestDatasource {
   Future<TenantList> getJobList(
       String username, String password, BuildContext context) {
     NetworkUtil oNetworkUtil = new NetworkUtil();
-
     URLConstants oURLConstants = new URLConstants();
-
-    Map<String, dynamic> arrJobList;
     String strBasicAuth = oNetworkUtil.getBasicAuth(username, password);
     return oNetworkUtil.get(context, oURLConstants.strTenantURL,
         headers: {'authorization': strBasicAuth}).then(
       (dynamic res) {
         print("Data Source= " + res.toString());
         Map<String, dynamic> data = json.decode(res.toString());
-        List arrjobs = data['arrJobList'];
-        for (int nIndex = 0; nIndex < arrjobs.length; nIndex++) {
-          arrJobList = arrjobs[nIndex];
-          for (int nArray = 0; nArray < arrjobs.length; nArray++) {
-            print('ID=' + arrJobList['m_nId'].toString());
-            print('Name=' + arrJobList['m_strJobName'].toString());
-          }
-        }
         var route = new MaterialPageRoute(
           builder: (BuildContext context) => new Jobs(
                 strUsername: username,
                 strPassword: password,
-                arrJobList: arrJobList,
+                arrJobList: data,
               ),
         );
         Navigator.of(context).push(route);

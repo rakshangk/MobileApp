@@ -84,6 +84,7 @@ class MainScreenState extends State<MainScreen> {
         labelWelcomeText,
         SizedBox(height: 60.0),
         dropdownList,
+        SizedBox(height: 200.0),
         btnLogout
       ],
     )));
