@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:login_flutter/utils/form_validation.dart';
+import 'package:login_flutter/data/rest_ds.dart';
+import 'package:login_flutter/utils/Securityutils.dart';
 
 class SignUp extends StatefulWidget {
   @override
@@ -7,6 +9,8 @@ class SignUp extends StatefulWidget {
 }
 
 class SignUpState extends State<SignUp> {
+  RestDatasource oRestDataSource=new RestDatasource();
+  SecurityUtils oSecurityUtils=new SecurityUtils();
   final GlobalKey<FormState> frmKey = GlobalKey<FormState>();
   FormValadation oFormValadation = new FormValadation();
   var varFirstName = new TextEditingController();
@@ -143,7 +147,10 @@ class SignUpState extends State<SignUp> {
           child: Text('Sign Up', style: TextStyle(color: Colors.white)),
           onPressed: () {
             // Navigator.of(context).pushNamed(HomePage.tag);
-            if (frmKey.currentState.validate()) {}
+            if (frmKey.currentState.validate()) {
+               String strEncryptedPassword = oSecurityUtils.passwordEncrypt(varPasssword.text);
+                oRestDataSource.signup(varEmail.text, varFirstName.text, varLastName.text, varMobile.text, strEncryptedPassword, context);
+            }
           },
         ),
       ),

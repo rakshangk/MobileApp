@@ -8,9 +8,12 @@ import 'package:login_flutter/screens/main_screen.dart';
 import 'package:login_flutter/screens/jobs_screen.dart';
 import 'package:login_flutter/Constants/URLConstants.dart';
 
+import 'package:login_flutter/models/sign_up_model.dart';
+
 class RestDatasource {
   NetworkUtil oNetworkUtil = new NetworkUtil();
   URLConstants oURLConstants = new URLConstants();
+
 
   Future<User> login(String username, String password, BuildContext context) {
     String strBasicAuth = oNetworkUtil.getBasicAuth(username, password);
@@ -31,6 +34,23 @@ class RestDatasource {
         );
         Navigator.of(context).push(route);
       }
+    });
+  }
+
+  Future<User> signup(
+      String strEmailId,
+      String strFirstName,
+      String strLastName,
+      String strMobile,
+      String strPassword,
+      BuildContext context) {
+    SignUpModel oSignUpModel = new SignUpModel(
+        strEmailId, strFirstName, strLastName, strMobile, strPassword);
+    String data = json.encode(oSignUpModel);
+    print(data);
+    return oNetworkUtil.post(context, oURLConstants.strSignUpURL,
+        body: {"user": data}).then((dynamic res) {
+      
     });
   }
 
