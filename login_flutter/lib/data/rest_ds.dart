@@ -14,7 +14,6 @@ class RestDatasource {
   NetworkUtil oNetworkUtil = new NetworkUtil();
   URLConstants oURLConstants = new URLConstants();
 
-
   Future<User> login(String username, String password, BuildContext context) {
     String strBasicAuth = oNetworkUtil.getBasicAuth(username, password);
     return oNetworkUtil.post(context, oURLConstants.strLoginURL,
@@ -44,14 +43,12 @@ class RestDatasource {
       String strMobile,
       String strPassword,
       BuildContext context) {
-    SignUpModel oSignUpModel = new SignUpModel(
+      SignUpModel oSignUpModel = new SignUpModel(
         strEmailId, strFirstName, strLastName, strMobile, strPassword);
-    String data = json.encode(oSignUpModel);
+    var data = json.encode(oSignUpModel);
     print(data);
     return oNetworkUtil.post(context, oURLConstants.strSignUpURL,
-        body: {"user": data}).then((dynamic res) {
-      
-    });
+        body: {"oUserDetails": data}).then((dynamic res) {});
   }
 
   Future<TenantList> getJobList(

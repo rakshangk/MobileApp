@@ -119,8 +119,8 @@ class SignUpState extends State<SignUp> {
       controller: varConfirmPasssword,
       autofocus: false,
       decoration: InputDecoration(
-        hintText: 'Password',
-        labelText: 'Password',
+        hintText: 'Confirm Password',
+        labelText: 'Confirm Password',
         contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(15.0)),
       ),

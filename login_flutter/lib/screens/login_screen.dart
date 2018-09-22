@@ -3,6 +3,7 @@ import 'package:login_flutter/models/user.dart';
 import 'package:login_flutter/data/rest_ds.dart';
 import 'package:login_flutter/utils/form_validation.dart';
 import 'package:login_flutter/utils/Securityutils.dart';
+
 class LoginScreen extends StatefulWidget {
   static String tag = 'login-page';
   @override
@@ -19,6 +20,8 @@ class LoginScreenState extends State<LoginScreen> {
   var strOTP = new TextEditingController();
   User user;
   bool bAutoValidate = false;
+  bool bObscureText = true;
+
   RestDatasource restDatasource = new RestDatasource();
 
   @override
@@ -32,6 +35,7 @@ class LoginScreenState extends State<LoginScreen> {
         fontWeight: FontWeight.bold,
       ),
     );
+
     final email = TextFormField(
       keyboardType: TextInputType.emailAddress,
       controller: strUsername,
@@ -52,22 +56,31 @@ class LoginScreenState extends State<LoginScreen> {
       },
     );
 
+
+    void _toggle() {
+      setState(() {
+        bObscureText = !bObscureText;
+      });
+    }
+
     final password = TextFormField(
       autofocus: false,
       controller: strPassword,
-      obscureText: true,
+       obscureText: bObscureText,
       decoration: InputDecoration(
-        hintText: 'Password',
-        labelText: 'Password',
-        contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(15.0)),
-      ),
+          hintText: 'Password',
+          labelText: 'Password',     
+          contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(15.0)),
+          suffixIcon:new FlatButton(
+             child:const Icon(Icons.remove_red_eye ),
+             onPressed: _toggle,
+          )),
       validator: (value) {
         if (value.isEmpty) return "Please enter Password...";
       },
     );
 
-   
     final loginButton = Padding(
       padding: EdgeInsets.symmetric(vertical: 16.0),
       child: Material(
@@ -82,8 +95,10 @@ class LoginScreenState extends State<LoginScreen> {
           onPressed: () {
             // Navigator.of(context).pushNamed(HomePage.tag);
             if (frmKey.currentState.validate()) {
-               String strEncryptedPassword = oSecurityUtils.passwordEncrypt(strPassword.text);
-              restDatasource.login(strUsername.text,strEncryptedPassword.toString(), context);
+              String strEncryptedPassword =
+                  oSecurityUtils.passwordEncrypt(strPassword.text);
+              restDatasource.login(
+                  strUsername.text, strEncryptedPassword.toString(), context);
             }
           },
         ),
@@ -148,7 +163,7 @@ class LoginScreenState extends State<LoginScreen> {
               loginButton,
               signUpButton,
               forgotLabel,
-              
+
               //changePasswordLabel,
             ],
           ),

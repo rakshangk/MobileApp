@@ -6,20 +6,22 @@ class SignUpModel {
    String m_strPassword;
 
   SignUpModel(this.m_strEmailId, this.m_strFirstName, this.m_strLastName, this.m_strMobile, this.m_strPassword);
-  SignUpModel.fromJson(Map<String, dynamic> json)
-      : m_strEmailId = json['strEmailId'],
+  
+  SignUpModel.fromJson(Map<String, dynamic> json):
+       // m_strEmailId = json['strEmailId'],
         m_strFirstName = json['strFirstName'],
         m_strLastName=json['strLastName'],
-        m_strMobile=json['strMobile'],
-        m_strPassword=json['strPassword'];
+        m_strMobile=json['strMobile']
+       // m_strPassword=json['m_strPassword']
+       ;
 
   Map<String, dynamic> toJson() =>
     {
-      'strEmailId': m_strEmailId,
-      'strFirstName': m_strFirstName,
-      'strLastName': m_strLastName,
-      'strMobile': m_strMobile,
-      'strPassword':m_strPassword,
+    //'m_strEmailId': m_strEmailId,
+      'm_strFirstName': m_strFirstName,
+      'm_strLastName': m_strLastName,
+      'm_strMobile': m_strMobile,
+    //'m_strPassword':m_strPassword,
     };
   
 }
