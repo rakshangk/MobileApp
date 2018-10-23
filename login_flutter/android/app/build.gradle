@@ -11,10 +11,6 @@ if (flutterRoot == null) {
     throw new GradleException("Flutter SDK not found. Define location with flutter.sdk in the local.properties file.")
 }
 
-plugins {
-    id "base"
-}
-
 apply plugin:'base'
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
